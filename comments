@@ -1,0 +1,65 @@
+A-: solid effort, some limitations mentioned below.
+
+## ease of accessing package, help, tests:
+
+Good
+
+Your R package source files are not in your repository. You should be managing the package via GitHub.
+
+## main help page (select):
+
+Good, though no discussion of the algorithm. Includes an example.
+
+## quality of user interface (function arguments, flexibility):
+
+Good flexibility provided to the user.
+
+If you recommend 'tournament' why isn't it the default?
+
+Probably best to allow plotting to be user-controlled, but your plot and output provided are quite user friendly.
+
+## performance on my tests:
+
+performance on baseball known: decent but not best model found
+performance on baseball full: did not find a good model
+performance on big-p: did not find a good model
+
+Performance is better if I switch to 'tournament'.
+
+Strangely, AIC does not seem to be generally decreasing in my tests when using prop_rand method. Your calculation of fitness values as a function of AIC isn't intuitive to me -- not clear that this fitness function works very well given the results I see on my tests.
+
+## testing
+
+Tests pass. Tests focus on correct output format and error-trapping. 
+
+## writeup (including examples):
+
+Very clear/organized. Extensive consideration of an example. However you don't assess whether your algorithm finds the best model. This can be done via exhaustive search with few enough covariates (to find the actual minimum) or by using a simulated dataset with a known true model.
+
+## code efficiency
+
+Fast for basic example.
+
+You use rbind to grow an object in crossover, without pre-allocation. Same for c() with the parents object.
+
+Not clear whether it's efficient to store the genes as strings given you are having to go back and forth to individual 0s/1s.
+
+## code organization/clarity/elegance:
+
+Good. Generally easy to follow.
+
+Various assertions in select() and helpers. Probably don't need many assertions in helper functions since not called by user.
+
+A model with no covariates is a valid model.
+
+## code comments/formatting:
+
+Good
+
+## parallelization:
+
+None
+
+## equality of workload:
+
+Good

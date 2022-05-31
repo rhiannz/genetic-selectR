@@ -1,0 +1,138 @@
+---
+title: "Write Up"
+author: "Rhiann Zhang"
+date: "12/8/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+```{r}
+
+library(testthat)
+
+
+test_that("select returns an error when inputting an invalid input for 
+          objective_function", {
+    expect_error(select(Boston, crim~zn + indus + chas + nox + rm + age + 
+                          dis+rad+tax+ptratio+black + lstat+medv, 
+                        objective_function = "blahblah"))
+})
+
+
+test_that("select returns an error when user inputs other for 
+          objective_function without specifying an input for other_objective ", {
+    expect_error(select(Boston, crim~zn + indus + chas + nox + rm + age + 
+                          dis+rad+tax+ptratio+black + lstat+medv, 
+                        objective_function = "other"))
+})
+
+
+
+test_that("select returns an error when inputting an invalid input for cross_points", {
+    expect_error(select(Boston, crim~zn + indus + chas + nox + rm + age + 
+                          dis+rad+tax+ptratio+black + lstat+medv, 
+                        cross_points = "five"))
+  
+})
+
+
+
+test_that("select returns an error when inputting an invalid input for selection", {
+    expect_error(select(Boston, crim~zn + indus + chas + nox + rm + age + 
+                          dis+rad+tax+ptratio+black + lstat+medv, 
+                        cross_points = "five"))
+  
+})
+
+
+
+test_that("select returns an error when inputting an invalid input for mutation_rate", {
+  
+  
+  expect_error(select(Boston, crim ~ zn + indus + chas + nox + rm + age +
+                        dis+rad+tax+ptratio+black + lstat+medv, 
+                      selection = "tournament", mutation_rate = 1.2))
+})
+
+
+
+function(dataset, formula, regression = "gaussian", pop_scale = 1.5, 
+                   objective_function = "AIC", other_objective = NULL, 
+                   selection = "prop_rand", cross_points = 1, 
+                   mutation_rate = 0.01, 
+                   max_itr = 50)
+
+
+
+  select(Boston, crim ~ zn + indus + chas + nox + rm + age +
+                        dis+rad+tax+ptratio+black + lstat+medv, regression  = "blahblah")
+
+
+```
+
+
+
+```{r}
+test_that("select returns an error when inputting an invalid input for selection", {
+    expect_warning(select(Boston, crim~zn + indus + chas + nox + rm + age + 
+                          dis+rad+tax+ptratio+black + lstat+medv, 
+                        selection = "other"))
+})
+
+
+
+method <- "other"
+  if((method != "prop_rand") & (method != "tournament")){
+    warning("method input is not valid.")
+    print(method)
+  }
+  
+
+
+
+```
+
+
+```{r}
+
+Guns <- read.csv("Guns.csv")
+castle <- read.csv("castle.csv")
+prison <- read.csv("prison.csv")
+
+library(MASS)
+data("Boston")
+source("MINselect.R")
+set.seed(100)
+
+# select(mtcars, mpg ~ cyl+disp+hp+drat+wt+qsec, selection = "prop_rand")
+# select(Guns, violent ~ prisoners + male + afam + cauc + population + income+density, selection = "tournament")
+# select(Guns, violent ~ prisoners + male + afam + cauc + population + income+density, selection = "prop_rand")
+select(Boston, crim ~ zn + indus + chas + nox + rm + age +
+         dis+rad+tax+ptratio+black + lstat+medv, selection = "prop_rand")
+
+
+select(Boston, crim ~ zn + indus + chas + nox + rm + age +dis+rad+tax+ptratio+black + lstat+medv, selection = "tournament")
+
+# 
+select(Boston, crim ~ zn + indus + chas + nox + rm + age +dis+rad+tax+ptratio+black + lstat+medv,
+       objective_function = "other", other_objective = logLik,
+       selection = "tournament")
+
+
+select(Boston, crim ~ zn + indus + chas + nox + rm + age +dis+rad+tax+ptratio+black + lstat+medv, selection = "tournament", cross_points = 3)
+
+
+select(Boston, crim ~ zn + indus + chas + nox + rm + age +dis+rad+tax+ptratio+black + lstat+medv, selection = "tournament", mutation_rate = 0.2)
+
+
+select(Boston, crim ~ zn + indus + chas + nox + rm + age +dis+rad+tax+ptratio+black + lstat+medv, selection = "tournament", pop_scale = 3)
+
+
+```
+
